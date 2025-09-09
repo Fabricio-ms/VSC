@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="lib/leaflet-1.9.4/leaflet.css">
+
+    <!-- Leaflet-sidebar-v2 CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-sidebar-v2/css/leaflet-sidebar.min.css" />
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="css/fontawesome-free-6.7.2-web/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+<body>
+
+    <!--Definimos el contenedor del sidebar-->
+    <div id="sidebar" class="leaflet-sidebar collapsed">
+        <!--Contenedores de pestañas-->
+        <div class="leaflet-sidebar-tabs">
+            <!--Pestañas en la parte superior-->
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+            </ul>
+            <!--Pestañas en la parte inferior-->
+            <ul role="tablist">
+                <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+            </ul>
+        </div>
+        <!--Paneles de Contenido-->
+        <div class="leaflet-sidebar-content">
+            <div class="leaflet-sidebar-pane" id="home">
+                <h1 class="leaflet-sidebar-header">
+                    Mapa Turistico Coto Brus
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div class="sidebar-content">
+                    <p>Bienvenido al mapa turístico de Coto Brus. Aquí encontrarás información sobre los principales atractivos turísticos de la zona.</p>
+                    <button id="zoomToCenter" class="btn">Centrar en San Vito</button>
+                </div>
+            </div>
+
+            <div class="leaflet-sidebar-pane" id="profile">
+                <h1 class="leaflet-sidebar-header">
+                    Lugares Turisticos
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div class="sidebar-content">
+                    <button class="accordion">Lugares Turisticos</button>
+                    <div class="panel" style="display:none;">
+                        <ul id="tourist-places">
+                            <li class="district-title collapsible">San Vito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                            </ul>
+                        </ul>
+                       <ul id="tourist-places">
+                            <li class="district-title collapsible">Sabalito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                            </ul>
+                        </ul>
+                        <ul id="tourist-places">
+                            <li class="district-title collapsible">Limoncito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                            </ul>
+                        </ul>
+                        <ul id="tourist-places">
+                            <li class="district-title collapsible">Agua Buena</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                            </ul>
+                        </ul>
+                        <ul id="tourist-places">
+                            <li class="district-title collapsible">Pittier</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                            </ul>
+                        </ul>
+                        <ul id="tourist-places">
+                            <li class="district-title collapsible">Gutierrez Braun</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-tree" style="color:green; margin-right:8px;"></i>Zona Turistica</li>
+                            </ul>
+                        </ul>
+                        <p class="slogan">¡Descubre la belleza natural y cultural de Coto Brus!</p>
+                    </div>
+                </div>
+                <div class="sidebar-content">
+                    <button class="accordion">Restaurantes</button>
+                    <div class="panel" style="display:none;">
+                        <ul id="restaurant-places">
+                            <li class="district-title collapsible">San Vito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 3</li>
+                            </ul>
+                        </ul>
+                        <ul id="restaurant-places">
+                            <li class="district-title collapsible">Sabalito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 3</li>
+                            </ul>
+                        </ul>
+                        <ul id="restaurant-places">
+                            <li class="district-title collapsible">Limoncito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 3</li>
+                            </ul>
+                        </ul>
+                        <ul id="restaurant-places">
+                            <li class="district-title collapsible">Agua Buena</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 3</li>
+                            </ul>
+                        </ul>
+                        <ul id="restaurant-places">
+                            <li class="district-title collapsible">Pittier</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 3</li>
+                            </ul>
+                        </ul>
+                        <ul id="restaurant-places">
+                            <li class="district-title collapsible">Gutierrez Braun</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-utensils" style="color:darkred; margin-right:8px;"></i>Restaurante 3</li>
+                            </ul>
+                        </ul>
+                        <p class="slogan">¡Sabores únicos que deleitan tu paladar!</p>
+                    </div>
+                </div>
+                <div class="sidebar-content">
+                    <button class="accordion">Hospedajes</button>
+                    <div class="panel" style="display:none;">
+                        <ul id="lodging-places">
+                            <li class="district-title collapsible">San Vito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.781826" data-lng="-82.957138" data-slogan="¡Gran experiencia de alojamiento de la region!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Botanik Glamping</li>
+                                <li data-lat="8.801570" data-lng="-82.968636" data-slogan="¡Hospedaje en las montañas de San Vito, vive la belleza de la zona sur con nosotros!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Canto del Bosque</li>
+                                <li data-lat="8.805849" data-lng="-82.960365" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Cabañas Bambú</li>
+                            </ul>
+                        </ul>
+                         <ul id="lodging-places">
+                            <li class="district-title collapsible">Sabalito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje</li>
+                            </ul>
+                        </ul>
+                         <ul id="lodging-places">
+                            <li class="district-title collapsible">Limoncito</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje</li>
+                            </ul>
+                        </ul>
+                        <ul id="lodging-places">
+                            <li class="district-title collapsible">Agua Buena</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 3</li>
+                            </ul>
+                        </ul>
+                        <ul id="lodging-places">
+                            <li class="district-title collapsible">Pittier</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 3</li>
+                            </ul>
+                        </ul>
+                        <ul id="lodging-places">
+                            <li class="district-title collapsible">Gutierrez Braun</li>
+                            <ul class="district-list" style="display:none;">
+                                <li data-lat="8.820287" data-lng="-82.972368" data-slogan="¡Disfruta de la mejor comida local!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 1</li>
+                                <li data-lat="8.822838" data-lng="-82.968944" data-slogan="¡Sabores que enamoran!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 2</li>
+                                <li data-lat="8.824539" data-lng="-82.973133" data-slogan="¡Una experiencia culinaria única!"><i class="fa fa-bed" style="color:darkblue; margin-right:8px;"></i>Hospedaje 3</li>
+                            </ul>
+                        </ul>
+                        <p class="slogan">¡Descansa y disfruta de la tranquilidad de Coto Brus!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leaflet-sidebar-pane" id="settings">
+                <h1 class="leaflet-sidebar-header">
+                    Configuración
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div class="sidebar-content">
+                    <h3>Opciones del mapa</h3>
+                    <!--Se pueden agregar mas cosas en la configuración del mapa-->
+                   <div>
+                    <input type="checkbox" id="showDistricts">Mostrar Distritos
+                   </div>
+                   <div>
+                    <input type="checkbox" id="showTransport">Mostrar Transporte
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="map"></div>
+
+    <script src="lib/leaflet-1.9.4/leaflet.js"></script>
+    <!-- Leaflet-sidebar-v2 JS -->
+    <script src="https://unpkg.com/leaflet-sidebar-v2/js/leaflet-sidebar.min.js"></script>
+    
+    <script src="js/script.js"></script>
+
+    <script>
+   document.querySelectorAll('.accordion').forEach(function(btn) {
+  var panel = btn.nextElementSibling;
+  var hideTimeout;
+
+  // Panel colapsado por defecto
+  panel.style.display = "none";
+
+  function showPanel() {
+    clearTimeout(hideTimeout);
+    panel.style.display = "block";
+    btn.classList.add('active');
+  }
+
+  function hidePanel() {
+    hideTimeout = setTimeout(function() {
+      panel.style.display = "none";
+      btn.classList.remove('active');
+    }, 100); // tiempo para seleccionar
+  }
+
+  btn.addEventListener('mouseenter', showPanel);
+  btn.addEventListener('mouseleave', hidePanel);
+  panel.addEventListener('mouseenter', showPanel);
+  panel.addEventListener('mouseleave', hidePanel);
+});
+    </script>
+    <script>
+// Desplegar y ocultar listas de distrito al hacer clic
+document.querySelectorAll('.district-title.collapsible').forEach(function(title) {
+    title.addEventListener('click', function(e) {
+        // Oculta todas las listas de distrito
+        document.querySelectorAll('.district-list').forEach(function(list) {
+            list.style.display = 'none';
+        });
+        // Muestra solo la lista del distrito clickeado
+        var nextList = title.nextElementSibling;
+        if (nextList && nextList.classList.contains('district-list')) {
+            nextList.style.display = 'block';
+        }
+        // Evita que el click se propague
+        e.stopPropagation();
+    });
+});
+
+// Oculta todas las listas si se hace clic fuera de ellas
+document.addEventListener('click', function(e) {
+    // Verifica si el click fue fuera de cualquier district-title o district-list
+    if (!e.target.classList.contains('district-title') && !e.target.classList.contains('district-list')) {
+        document.querySelectorAll('.district-list').forEach(function(list) {
+            list.style.display = 'none';
+        });
+    }
+});
+</script>
+</body>
+</html>
