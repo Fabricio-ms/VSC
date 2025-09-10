@@ -78,7 +78,9 @@ document.querySelectorAll("#tourist-places li").forEach(function(item){
   var iconHtml = '<img src="img/map.png" alt="Turismo" style="width:24px;vertical-align:middle;margin-right:8px;">';
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" +
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") +
-  (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") +
+  (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
+  (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
+  (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
@@ -105,7 +107,9 @@ document.querySelectorAll("#restaurant-places li").forEach(function(item){
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
   (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
-  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
+  (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
+  (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
+  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");  
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, restauranteIcon, popupContent);
@@ -131,6 +135,8 @@ document.querySelectorAll("#lodging-places li").forEach(function(item){
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
   (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
+  (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
+  (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
