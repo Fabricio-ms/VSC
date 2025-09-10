@@ -76,7 +76,10 @@ document.querySelectorAll("#tourist-places li").forEach(function(item){
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/map.png" alt="Turismo" style="width:24px;vertical-align:middle;margin-right:8px;">';
-  var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>";
+  var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" +
+  (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") +
+  (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") +
+  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, turismoIcon, popupContent);
@@ -99,7 +102,10 @@ document.querySelectorAll("#restaurant-places li").forEach(function(item){
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/restaurant.png" alt="Restaurante" style="width:24px;vertical-align:middle;margin-right:8px;">';
-  var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>";
+  var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
+  (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
+  (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
+  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, restauranteIcon, popupContent);
@@ -122,7 +128,10 @@ document.querySelectorAll("#lodging-places li").forEach(function(item){
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/lodging-2.png" alt="Hospedaje" style="width:24px;vertical-align:middle;margin-right:8px;">';
-  var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>";
+  var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
+  (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
+  (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
+  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, hospedajeIcon, popupContent);
