@@ -52,6 +52,13 @@ var transportIcon = L.icon({
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
 })
+var tourIcon = L.icon({
+  iconUrl: "img/museo.png",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+})
+
 
 // Marcador temporal y cierre de popup al hacer click en el mapa
 var currentMarker = null;
@@ -175,6 +182,35 @@ document.querySelectorAll("#transport-places li").forEach(function(item){
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, transportIcon, popupContent);
+  });
+});
+
+document.querySelectorAll(".district-title.collapsible").forEach(function(title) {
+  title.addEventListener("click", function() {
+    var nextList = title.nextElementSibling;
+    if (nextList && nextList.classList.contains("district-list")) {
+      nextList.style.display = (nextList.style.display === "none" || nextList.style.display === "") ? "block" : "none";
+    }
+  })
+});
+
+// Añadimos marcadores para Tour
+document.querySelectorAll("#tour-places li").forEach(function(item){
+  var lat = item.getAttribute("data-lat");
+  var lng = item.getAttribute("data-lng");
+  var name = item.textContent.trim();
+  var slogan = item.getAttribute("data-slogan") || "";
+  var iconHtml = '<img src="img/bus.png" alt="Transporte" style="width:24px;vertical-align:middle;margin-right:8px;">';
+  var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
+  (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
+  (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
+  (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
+  (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
+  (item.getAttribute("data-duration") ? "<br>⏳ " + item.getAttribute("data-duration") : "") +
+  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
+  item.addEventListener("click", function(){
+    map.setView([lat, lng], 16);
+    showTempMarker(lat, lng, tourIcon, popupContent);
   });
 });
 
