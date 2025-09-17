@@ -19,11 +19,11 @@ var map = L.map("map", {
 });
 
 // Inicializamos el sidebar
-var sidebar = L.control.sidebar("sidebar").addTo(map)
+var sidebar = L.control.sidebar({ container: "sidebar" }).addTo(map);
 
 // Funcion para centrar el mapa en San Vito
 document.getElementById("zoomToCenter").addEventListener("click", function(e){
-    map.setView([8.820164, -82.972519], 13);
+    map.setView([8.820164, -82.972519], 15);
     sidebar.close();
 })
 
@@ -46,7 +46,7 @@ var hospedajeIcon = L.icon({
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
 })
-var transportIcon = L.icon({
+var transporteIcon = L.icon({
   iconUrl: "img/bus.png",
   iconSize: [32, 32],
   iconAnchor: [16, 32],
@@ -59,6 +59,11 @@ var tourIcon = L.icon({
   popupAnchor: [0, -32]
 })
 
+var turismoLayer = L.layerGroup().addTo(map);
+var restauranteLayer = L.layerGroup().addTo(map);
+var hospedajeLayer = L.layerGroup().addTo(map);
+var transporteLayer = L.layerGroup().addTo(map);
+var tourLayer = L.layerGroup().addTo(map);
 
 // Marcador temporal y cierre de popup al hacer click en el mapa
 var currentMarker = null;
@@ -84,6 +89,7 @@ map.on("click", function() {
 
 // Añadimos marcadores para lugares turisticos
 document.querySelectorAll("#tourist-places li").forEach(function(item){
+  if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
@@ -99,6 +105,7 @@ document.querySelectorAll("#tourist-places li").forEach(function(item){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, turismoIcon, popupContent);
   });
+  }
 });
 
 document.querySelectorAll(".district-title.collapsible").forEach(function(title) {
@@ -112,6 +119,7 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 
 // Añadimos marcadores para Restaurantes
 document.querySelectorAll("#restaurant-places li").forEach(function(item){
+  if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
@@ -127,6 +135,7 @@ document.querySelectorAll("#restaurant-places li").forEach(function(item){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, restauranteIcon, popupContent);
   });
+  }
 });
 
 document.querySelectorAll(".district-title.collapsible").forEach(function(title) {
@@ -140,6 +149,7 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 
 // Añadimos marcadores para Hospedajes
 document.querySelectorAll("#lodging-places li").forEach(function(item){
+  if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
@@ -155,6 +165,7 @@ document.querySelectorAll("#lodging-places li").forEach(function(item){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, hospedajeIcon, popupContent);
   });
+  }
 });
 
 document.querySelectorAll(".district-title.collapsible").forEach(function(title) {
@@ -168,6 +179,7 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 
 // Añadimos marcadores para Transportes
 document.querySelectorAll("#transport-places li").forEach(function(item){
+  if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
@@ -181,8 +193,9 @@ document.querySelectorAll("#transport-places li").forEach(function(item){
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
-    showTempMarker(lat, lng, transportIcon, popupContent);
+    showTempMarker(lat, lng, transporteIcon, popupContent);
   });
+  }
 });
 
 document.querySelectorAll(".district-title.collapsible").forEach(function(title) {
@@ -196,6 +209,7 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 
 // Añadimos marcadores para Tour
 document.querySelectorAll("#tour-places li").forEach(function(item){
+  if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
@@ -212,6 +226,7 @@ document.querySelectorAll("#tour-places li").forEach(function(item){
     map.setView([lat, lng], 16);
     showTempMarker(lat, lng, tourIcon, popupContent);
   });
+  }
 });
 
 document.querySelectorAll(".district-title.collapsible").forEach(function(title) {
@@ -43299,18 +43314,18 @@ var transportLayer = L.geoJSON(transportRoutes, {
     }
 })
 
-document.getElementById("showDistricts").addEventListener("click", function(){
-    if(this.checked){
-        distritosLayer.addTo(map)
-    }else{
-        map.removeLayer(distritosLayer)
+document.getElementById('showTransport').addEventListener('change', function(e) {
+    if (e.target.checked) {
+        transportLayer.addTo(map);
+    } else {
+        map.removeLayer(transportLayer);
     }
-})
+});
 
-document.getElementById("showTransport").addEventListener("click", function(){
-    if(this.checked){
-        transportLayer.addTo(map)
-    }else{
-        map.removeLayer(transportLayer)
+document.getElementById('showDistricts').addEventListener('change', function(e) {
+    if (e.target.checked) {
+        distritosLayer.addTo(map); // O el grupo que corresponda a distritos
+    } else {
+        map.removeLayer(distritosLayer);
     }
-})
+});
