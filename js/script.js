@@ -87,19 +87,50 @@ map.on("click", function() {
   }
 });
 
+// Función para crear carrusel de imágenes en el popup
+function createImageCarousel(images, nombre, carouselId) {
+  if (!images.length) return '';
+  let imgsHtml = images.map((src, i) =>
+    `<img src="${src}" alt="${nombre}" style="width:100%;max-width:220px;display:${i===0?'block':'none'};border-radius:8px;display:block;margin:0 auto;" class="carousel-img">`
+  ).join('');
+  window[carouselId + '_idx'] = 0; // Inicializa el índice global
+  return `
+    <div id="${carouselId}" style="position:relative;text-align:center;">
+      ${imgsHtml}
+      <button style="position:absolute;top:50%;left:0;transform:translateY(-50%);background:#fff;border:none;font-size:1.5em;cursor:pointer;" onclick="window.carouselPrev('${carouselId}')">&#9664;</button>
+      <button style="position:absolute;top:50%;right:0;transform:translateY(-50%);background:#fff;border:none;font-size:1.5em;cursor:pointer;" onclick="window.carouselNext('${carouselId}')">&#9654;</button>
+    </div>
+  `;
+}
+
+// Utilidad para obtener imágenes desde los atributos data-img1, data-img2, ...
+function getImages(item) {
+  let images = [];
+  for(let i=1; i<=5; i++) {
+    let img = item.getAttribute('data-img'+i);
+    if(img) images.push(img);
+  }
+  return images;
+}
+
 // Añadimos marcadores para lugares turisticos
-document.querySelectorAll("#tourist-places li").forEach(function(item){
+document.querySelectorAll("#tourist-places .district-list li").forEach(function(item, idx){
   if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/map.png" alt="Turismo" style="width:24px;vertical-align:middle;margin-right:8px;">';
+  var images = getImages(item);
+  var carouselId = "carousel-tourist-" + idx;
+  var imagesHtml = createImageCarousel(images, name, carouselId);
+  
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" +
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") +
   (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
   (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
   (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
+  imagesHtml +
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
@@ -118,22 +149,27 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 });
 
 // Añadimos marcadores para Restaurantes
-document.querySelectorAll("#restaurant-places li").forEach(function(item){
+document.querySelectorAll("#restaurant-places .district-list li").forEach(function(item, idx){
   if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/restaurant.png" alt="Restaurante" style="width:24px;vertical-align:middle;margin-right:8px;">';
+  var images = getImages(item);
+  var carouselId = "carousel-restaurant-" + idx;
+  var imagesHtml = createImageCarousel(images, name, carouselId);
+
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
   (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
   (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
   (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
-  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");  
+  imagesHtml +
+  (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
-    showTempMarker(lat, lng, restauranteIcon, popupContent);
+    showTempMarker(lat, lng, hospedajeIcon, popupContent);
   });
   }
 });
@@ -148,18 +184,23 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 });
 
 // Añadimos marcadores para Hospedajes
-document.querySelectorAll("#lodging-places li").forEach(function(item){
+document.querySelectorAll("#lodging-places .district-list li").forEach(function(item, idx){
   if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/lodging-2.png" alt="Hospedaje" style="width:24px;vertical-align:middle;margin-right:8px;">';
+  var images = getImages(item);
+  var carouselId = "carousel-lodging-" + idx;
+  var imagesHtml = createImageCarousel(images, name, carouselId);
+
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
   (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
   (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
   (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
+  imagesHtml +
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
@@ -178,18 +219,23 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 });
 
 // Añadimos marcadores para Transportes
-document.querySelectorAll("#transport-places li").forEach(function(item){
+document.querySelectorAll("#transport-places .district-list li").forEach(function(item, idx){
   if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/bus.png" alt="Transporte" style="width:24px;vertical-align:middle;margin-right:8px;">';
+  var images = getImages(item);
+  var carouselId = "carousel-transport-" + idx;
+  var imagesHtml = createImageCarousel(images, name, carouselId);
+
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
   (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
   (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
   (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
+  imagesHtml +
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
@@ -208,19 +254,24 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 });
 
 // Añadimos marcadores para Tour
-document.querySelectorAll("#tour-places li").forEach(function(item){
+document.querySelectorAll("#tour-places .district-list li").forEach(function(item, idx){
   if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
   var lng = item.getAttribute("data-lng");
   var name = item.textContent.trim();
   var slogan = item.getAttribute("data-slogan") || "";
   var iconHtml = '<img src="img/bus.png" alt="Transporte" style="width:24px;vertical-align:middle;margin-right:8px;">';
+  var images = getImages(item);
+  var carouselId = "carousel-tour-" + idx;
+  var imagesHtml = createImageCarousel(images, name, carouselId);
+  
   var popupContent = iconHtml + "<b>" + name + "</b><br><em>" + slogan + "</em>" + 
   (item.getAttribute("data-phone") ? "<br>📞 " + item.getAttribute("data-phone") : "") + 
   (item.getAttribute("data-address") ? "<br>📍 " + item.getAttribute("data-address") : "") + 
   (item.getAttribute("data-mail") ? "<br>✉️ " + item.getAttribute("data-mail") : "") +
   (item.getAttribute("data-instagram") ? "<br>📷 " + item.getAttribute("data-instagram") : "") +
   (item.getAttribute("data-duration") ? "<br>⏳ " + item.getAttribute("data-duration") : "") +
+  imagesHtml +
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
@@ -43329,3 +43380,23 @@ document.getElementById('showDistricts').addEventListener('change', function(e) 
         map.removeLayer(distritosLayer);
     }
 });
+
+window.carouselPrev = function(id){
+    var imgs = document.querySelectorAll('#'+id+' .carousel-img');
+    if (!imgs.length) return;
+    var idx = window[id+'_idx'] || 0;
+    imgs[idx].style.display = 'none';
+    idx = (idx-1+imgs.length)%imgs.length;
+    imgs[idx].style.display = 'block';
+    window[id+'_idx'] = idx;
+}
+
+window.carouselNext = function(id){
+    var imgs = document.querySelectorAll('#'+id+' .carousel-img');
+    if (!imgs.length) return;
+    var idx = window[id+'_idx'] || 0;
+    imgs[idx].style.display = 'none';
+    idx = (idx+1)%imgs.length;
+    imgs[idx].style.display = 'block';
+    window[id+'_idx'] = idx;
+}
