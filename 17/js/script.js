@@ -248,7 +248,7 @@ L.control.layers(basemaps, null, {
     position: "bottomright"
 }).addTo(map);
 
-// GeoJSON simplificado de distritos
+// GeoJSON simplificado de distritos//
 
 var distritosLayer = null;
 
