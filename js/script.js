@@ -80,20 +80,26 @@ function showTempMarker(lat, lng, icon, popupContent){
     currentMarker = null;
   });
 }
-map.on("click", function() {
-  if (currentMarker) {
-    map.removeLayer(currentMarker);
-    currentMarker = null;
-  }
+map.on('popupopen', function(e) {
+  // Busca todos los carruseles en el popup abierto
+  var popupDivs = e.popup._contentNode.querySelectorAll('div[id^="carousel-"]');
+  popupDivs.forEach(function(div) {
+    window[div.id + '_idx'] = 0;
+    // Oculta todas las imágenes menos la primera
+    var imgs = div.querySelectorAll('.carousel-img');
+    imgs.forEach(function(img, i) {
+      img.style.display = (i === 0) ? 'block' : 'none';
+    });
+  });
 });
 
 // Función para crear carrusel de imágenes en el popup
-function createImageCarousel(images, nombre, carouselId) {
+function createImageCarousel(images, name, carouselId) {
   if (!images.length) return '';
   let imgsHtml = images.map((src, i) =>
-    `<img src="${src}" alt="${nombre}" style="width:100%;max-width:220px;display:${i===0?'block':'none'};border-radius:8px;display:block;margin:0 auto;" class="carousel-img">`
+    `<img src="${src}" alt="${name}" style="width:100%;max-width:220px;${i===0?'display:block;':'display:none;'}border-radius:8px;display:block;margin:0 auto;" class="carousel-img">`
   ).join('');
-  window[carouselId + '_idx'] = 0; // Inicializa el índice global
+  // No inicialices el índice aquí
   return `
     <div id="${carouselId}" style="position:relative;text-align:center;">
       ${imgsHtml}
