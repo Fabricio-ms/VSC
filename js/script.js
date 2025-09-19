@@ -109,6 +109,26 @@ function createImageCarousel(images, name, carouselId) {
   `;
 }
 
+window.carouselPrev = function(id){
+    var imgs = document.querySelectorAll('#'+id+' .carousel-img');
+    if (!imgs.length) return;
+    var idx = window[id+'_idx'] || 0;
+    imgs[idx].style.display = 'none';
+    idx = (idx-1+imgs.length)%imgs.length;
+    imgs[idx].style.display = 'block';
+    window[id+'_idx'] = idx;
+}
+
+window.carouselNext = function(id){
+    var imgs = document.querySelectorAll('#'+id+' .carousel-img');
+    if (!imgs.length) return;
+    var idx = window[id+'_idx'] || 0;
+    imgs[idx].style.display = 'none';
+    idx = (idx+1)%imgs.length;
+    imgs[idx].style.display = 'block';
+    window[id+'_idx'] = idx;
+}
+
 // Utilidad para obtener imágenes desde los atributos data-img1, data-img2, ...
 function getImages(item) {
   let images = [];
@@ -224,7 +244,7 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
   })
 });
 
-// Añadimos marcadores para Transportes
+// Añadimos marcadores para Transporte
 document.querySelectorAll("#transport-places .district-list li").forEach(function(item, idx){
   if(item.hasAttribute("data-lat") && item.hasAttribute("data-lng")){
   var lat = item.getAttribute("data-lat");
@@ -249,6 +269,7 @@ document.querySelectorAll("#transport-places .district-list li").forEach(functio
   });
   }
 });
+
 
 document.querySelectorAll(".district-title.collapsible").forEach(function(title) {
   title.addEventListener("click", function() {
@@ -43387,22 +43408,3 @@ document.getElementById('showDistricts').addEventListener('change', function(e) 
     }
 });
 
-window.carouselPrev = function(id){
-    var imgs = document.querySelectorAll('#'+id+' .carousel-img');
-    if (!imgs.length) return;
-    var idx = window[id+'_idx'] || 0;
-    imgs[idx].style.display = 'none';
-    idx = (idx-1+imgs.length)%imgs.length;
-    imgs[idx].style.display = 'block';
-    window[id+'_idx'] = idx;
-}
-
-window.carouselNext = function(id){
-    var imgs = document.querySelectorAll('#'+id+' .carousel-img');
-    if (!imgs.length) return;
-    var idx = window[id+'_idx'] || 0;
-    imgs[idx].style.display = 'none';
-    idx = (idx+1)%imgs.length;
-    imgs[idx].style.display = 'block';
-    window[id+'_idx'] = idx;
-}
