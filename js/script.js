@@ -242,6 +242,7 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
       nextList.style.display = (nextList.style.display === "none" || nextList.style.display === "") ? "block" : "none";
     }
   })
+
 });
 
 // Añadimos marcadores para Transporte
