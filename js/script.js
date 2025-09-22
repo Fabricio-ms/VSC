@@ -42627,13 +42627,13 @@ document.getElementById("showDistricts").addEventListener("click", function() {
 
 function getDistritoColor(nombre) {
   switch(nombre) {
-    case "San Vito, Coto Brus": return "#ff0000"; // Rojo
-    case "Sabalito, Coto Brus": return "#0000ff"; // Azul
-    case "Aguabuena, Coto Brus": return "#00ff00"; // Verde
-    case "Limoncito, Coto Brus": return "#ffff00"; // Amarillo
-    case "Pittier, Coto Brus": return "#ff00ff"; // Magenta
-    case "Gutierrez Braun, Coto Brus": return "#00ffff"; // Cian
-    default: return "#8d297aff"; // Blanco para otros distritos
+    case "San Vito, Coto Brus": return "#569c71"; 
+    case "Sabalito, Coto Brus": return "#569c94"; 
+    case "Aguabuena, Coto Brus": return "#56819c"; 
+    case "Limoncito, Coto Brus": return "#48837c"; 
+    case "Pittier, Coto Brus": return "#9c9456";
+    case "Gutierrez Braun, Coto Brus": return "#6a71d7"; 
+    default: return "#8d297aff"; 
   }
 }
       
