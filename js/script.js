@@ -195,7 +195,7 @@ document.querySelectorAll("#restaurant-places .district-list li").forEach(functi
   (item.getAttribute("data-description") ? "<br><br>" + item.getAttribute("data-description") : "");
   item.addEventListener("click", function(){
     map.setView([lat, lng], 16);
-    showTempMarker(lat, lng, hospedajeIcon, popupContent);
+    showTempMarker(lat, lng, restauranteIcon, popupContent);
   });
   }
 });
