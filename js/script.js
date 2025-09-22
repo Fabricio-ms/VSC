@@ -43408,3 +43408,20 @@ document.getElementById('showDistricts').addEventListener('change', function(e) 
     }
 });
 
+map.on('zoomend', function() {
+  var zoom = map.getZoom();
+  document.querySelectorAll('.leaflet-popup').forEach(function(popup) {
+    if (zoom >= 16) {
+      popup.classList.add('small-popup');
+    } else {
+      popup.classList.remove('small-popup');
+    }
+  });
+});
+
+map.on('zoomend', function() {
+  var zoom = map.getZoom();
+  if (zoom <= 13 && map._popup) {
+    map.closePopup();
+  }
+});
