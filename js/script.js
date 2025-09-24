@@ -68,6 +68,8 @@ document.getElementById("zoomToPittier").addEventListener("click", function(e){
     sidebar.close();
 })
 
+var allMarkers = [];
+
 // Iconos personalizados para los marcadores
 var turismoIcon = L.icon({
   iconUrl: "img/map.png",
@@ -43468,3 +43470,4 @@ map.on('zoomend', function() {
     map.closePopup();
   }
 });
+
