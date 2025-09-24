@@ -254,4 +254,28 @@ body {
   padding: 6px 8px;
 }
 
-/* ...existing code... */
+/* Botones elegantes para centrar en los distritos */
+.btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px 0;
+  background: linear-gradient(90deg, #4fc3f7 0%, #1976d2 100%);
+  color: #fff;
+  font-size: 1.08em;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.15s;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover, .btn:focus {
+  background: linear-gradient(90deg, #1976d2 0%, #4fc3f7 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.15);
+  outline: none;
+}

@@ -33,8 +33,38 @@ var map = L.map("map", {
 var sidebar = L.control.sidebar({ container: "sidebar" }).addTo(map);
 
 // Funcion para centrar el mapa en San Vito
-document.getElementById("zoomToCenter").addEventListener("click", function(e){
+document.getElementById("zoomToSanVito").addEventListener("click", function(e){
     map.setView([8.820164, -82.972519], 15);
+    sidebar.close();
+})
+
+// Funcion para centrar el mapa en Sabalito
+document.getElementById("zoomTosabalito").addEventListener("click", function(e){
+    map.setView([8.819373, -82.912556], 15);
+    sidebar.close();
+})
+
+// Funcion para centrar el mapa en Limoncito
+document.getElementById("zoomToLimoncito").addEventListener("click", function(e){
+    map.setView([8.829945, -83.003806], 15);
+    sidebar.close();
+})
+
+// Funcion para centrar el mapa en Gutierrez Braun
+document.getElementById("zoomToGutierrezBraun").addEventListener("click", function(e){
+    map.setView([8.820164, -82.972519], 15);
+    sidebar.close();
+})
+
+// Funcion para centrar el mapa en Agua Buena
+document.getElementById("zoomToAguaBuena").addEventListener("click", function(e){
+    map.setView([8.746536, -82.942217], 15);
+    sidebar.close();
+})
+
+// Funcion para centrar el mapa en Pittier
+document.getElementById("zoomToPittier").addEventListener("click", function(e){
+    map.setView([9.015039, -82.965334], 15);
     sidebar.close();
 })
 
