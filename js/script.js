@@ -11,6 +11,17 @@ var carto = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/ligh
     attribution: '&copy; CartoDB'
 });
 
+var esriHybrid = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+
+var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Labels © Esri'
+});
+
+var esriHybridGroup = L.layerGroup([esriHybrid, esriLabels]);
+
+
 // Inicializar el mapa con osm por defecto
 var map = L.map("map", {
   center: [8.820164, -82.972519],
@@ -320,7 +331,8 @@ document.querySelectorAll(".district-title.collapsible").forEach(function(title)
 var basemaps = {
     "OpenStreetMap": osm,
     "Satélite Esri": esriSat,
-    "CartoDB Light": carto
+    "CartoDB Light": carto,
+    "Híbrido Esri": esriHybridGroup
 };
 L.control.layers(basemaps, null, {
     collapsed: true,
