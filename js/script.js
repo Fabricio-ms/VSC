@@ -26,7 +26,7 @@ var esriHybridGroup = L.layerGroup([esriHybrid, esriLabels]);
 var map = L.map("map", {
   center: [8.820164, -82.972519],
   zoom: 13,
-  layers: [esriSat]
+  layers: [esriHybridGroup]
 });
 
 // Inicializamos el sidebar
